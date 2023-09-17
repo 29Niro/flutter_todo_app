@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/models/tasks.dart';
 
-class TaskScreen extends StatelessWidget{
-  const TaskScreen({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class TaskScreen extends StatelessWidget {
+  TaskScreen({Key? key}) : super(key: key);
+
+  List<Task> taskList = [
+    Task(title: 'Task 1'),
+    Task(title: 'Task 2'),
+    Task(title: 'Task 3'),
+  ];
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tasks App'),
@@ -15,14 +23,30 @@ class TaskScreen extends StatelessWidget{
           )
         ],
       ),
-      body: const Column(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: Chip(
-              label: Text(
-                'Tasks:',
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: const Center(
+              child: Text(
+                'Tasks',
+                style: TextStyle(fontSize: 30),
               ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: taskList.length,
+              itemBuilder: (context, index) {
+                var task = taskList[index];
+                return ListTile(
+                    title: Text(task.title),
+                    trailing: Checkbox(
+                      value: task.isDone,
+                      onChanged: (value) {},
+                    ));
+              },
             ),
           ),
         ],
