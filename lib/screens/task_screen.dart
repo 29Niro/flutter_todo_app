@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/models/tasks.dart';
+import 'package:flutter_todo_app/screens/add_task_screen.dart';
 import 'package:flutter_todo_app/widgets/tasks_list.dart';
 
 import '../blocs/bloc_exports.dart';
 
 // ignore: must_be_immutable
-class TaskScreen extends StatelessWidget {
-  TaskScreen({Key? key}) : super(key: key);
+class TaskScreen extends StatefulWidget {
+  const TaskScreen({Key? key}) : super(key: key);
+
+  @override
+  State<TaskScreen> createState() => _TaskScreenState();
+}
+
+class _TaskScreenState extends State<TaskScreen> {
+  void _addTask(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => SingleChildScrollView(
+        child: Container(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: const AddTaskScreen(),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +59,9 @@ class TaskScreen extends StatelessWidget {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              _addTask(context);
+            },
             tooltip: 'Add Task',
             child: const Icon(Icons.add),
           ),
@@ -49,3 +70,5 @@ class TaskScreen extends StatelessWidget {
     );
   }
 }
+
+
