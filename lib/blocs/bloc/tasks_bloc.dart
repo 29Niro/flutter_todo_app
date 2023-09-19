@@ -10,6 +10,7 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
   TasksBloc() : super(const TasksState()) {
     on<AddTask>(_onAddTask);
     on<UpdateTask>(_onUpdateTask);
+    on<RemoveTask>(_onRemoveTask);
     on<DeleteTask>(_onDeleteTask);
   }
 
@@ -18,6 +19,7 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
 
     emit(TasksState(
       allTasks: List.from(state.allTasks)..add(event.task),
+      removedTasks: state.removedTasks,
     ));
   }
 
@@ -33,6 +35,17 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
 
     emit(TasksState(
       allTasks: allTasks,
+      removedTasks: state.removedTasks,
+    ));
+  }
+
+  void _onRemoveTask(RemoveTask event, Emitter<TasksState> emit) {
+    final state = this.state;
+
+    emit(TasksState(
+      allTasks: List.from(state.allTasks)..remove(event.task),
+      removedTasks: List.from(state.removedTasks)
+        ..add(event.task.copyWith(isDeleted: true)),
     ));
   }
 
@@ -40,15 +53,16 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
     final state = this.state;
 
     emit(TasksState(
-      allTasks: List.from(state.allTasks)..remove(event.task),
+      allTasks: state.allTasks,
+      removedTasks: List.from(state.removedTasks)..remove(event.task),
     ));
   }
-  
+
   @override
   TasksState? fromJson(Map<String, dynamic> json) {
     return TasksState.fromMap(json);
   }
-  
+
   @override
   Map<String, dynamic>? toJson(TasksState state) {
     return state.toMap();
