@@ -2,6 +2,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/screens/task_screen.dart';
+import 'package:flutter_todo_app/services/app_router.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'blocs/bloc_exports.dart';
@@ -18,14 +19,17 @@ void main() async {
           : await getApplicationDocumentsDirectory(),
     );
 
-    runApp(const MyApp());
+    runApp(MyApp(
+      appRouter: AppRouter(),
+    ));
   } catch (e) {
     print('Error initializing HydratedStorage: $e');
   }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.appRouter});
+  final AppRouter appRouter;
 
   // This widget is the root of your application.
   @override
@@ -38,6 +42,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: const TaskScreen(),
+        onGenerateRoute: appRouter.onGenerateRoute,
       ),
     );
   }

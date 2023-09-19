@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/models/tasks.dart';
 import 'package:flutter_todo_app/screens/add_task_screen.dart';
+import 'package:flutter_todo_app/screens/my_drawer.dart';
 import 'package:flutter_todo_app/widgets/tasks_list.dart';
 
 import '../blocs/bloc_exports.dart';
@@ -8,6 +9,7 @@ import '../blocs/bloc_exports.dart';
 // ignore: must_be_immutable
 class TaskScreen extends StatefulWidget {
   const TaskScreen({Key? key}) : super(key: key);
+  static const id = 'task_screen';
 
   @override
   State<TaskScreen> createState() => _TaskScreenState();
@@ -35,13 +37,8 @@ class _TaskScreenState extends State<TaskScreen> {
         return Scaffold(
           appBar: AppBar(
             title: const Text('Tasks App'),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.add),
-              )
-            ],
           ),
+          drawer: const MyDrawer(),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
