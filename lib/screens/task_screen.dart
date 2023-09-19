@@ -14,7 +14,6 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  
   void _addTask(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -49,10 +48,12 @@ class _TaskScreenState extends State<TaskScreen> {
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: const Center(
-                  child: Text(
-                    'Tasks',
-                    style: TextStyle(fontSize: 30),
+                child: Center(
+                  child: Chip(
+                    label: Text(
+                      '${state.allTasks.length} Tasks',
+                      style: const TextStyle(fontSize: 24),
+                    ),
                   ),
                 ),
               ),
@@ -71,5 +72,3 @@ class _TaskScreenState extends State<TaskScreen> {
     );
   }
 }
-
-
