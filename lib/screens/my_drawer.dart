@@ -16,17 +16,20 @@ class MyDrawer extends StatelessWidget {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 15),
-              color: Colors.grey,
+              color: Colors.blue,
               child: Text(
                 'Task Drawer',
-                style: Theme.of(context).textTheme.headlineSmall,
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                ),
               ),
             ),
             BlocBuilder<TasksBloc, TasksState>(
               builder: (context, state) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed(TaskScreen.id);
+                    Navigator.of(context).pushReplacementNamed(TaskScreen.id);
                   },
                   child: ListTile(
                     leading: const Icon(Icons.folder_special),
@@ -41,7 +44,7 @@ class MyDrawer extends StatelessWidget {
               builder: (context, state) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed(RecycleBin.id);
+                    Navigator.of(context).pushReplacementNamed(RecycleBin.id);
                   },
                   child: ListTile(
                     leading: const Icon(Icons.delete),
@@ -51,6 +54,25 @@ class MyDrawer extends StatelessWidget {
                 );
               },
             ),
+            const Divider(),
+            BlocBuilder<SwitchBloc, SwitchState>(
+              builder: (context, state) {
+                return ListTile(
+                  leading: const Icon(Icons.lightbulb),
+                  title: state.switchValue
+                      ? const Text('Dark Mode')
+                      : const Text('Light Mode'),
+                  trailing: Switch(
+                    value: state.switchValue,
+                    onChanged: (newValue) {
+                      newValue
+                          ? context.read<SwitchBloc>().add(SwitchOnEvent())
+                          : context.read<SwitchBloc>().add(SwitchOffEvent());
+                    },
+                  ),
+                );
+              },
+            )
           ],
         ),
       ),
