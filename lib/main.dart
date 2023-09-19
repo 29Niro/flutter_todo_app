@@ -1,14 +1,27 @@
+// ignore_for_file: avoid_print
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/screens/task_screen.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'blocs/bloc_exports.dart';
 
-void main() {
-  BlocOverrides.runZoned(
-    () {
-      runApp(const MyApp());
-    },
-  );
+void main() async {
+  // Ensure bindings are initialized
+  WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    // Initialize HydratedStorage
+    HydratedBloc.storage = await HydratedStorage.build(
+      storageDirectory: kIsWeb
+          ? HydratedStorage.webStorageDirectory
+          : await getApplicationDocumentsDirectory(),
+    );
+
+    runApp(const MyApp());
+  } catch (e) {
+    print('Error initializing HydratedStorage: $e');
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -20,7 +33,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => TasksBloc(),
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Todo App',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

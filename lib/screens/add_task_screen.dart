@@ -37,7 +37,7 @@ class AddTaskScreen extends StatelessWidget {
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.red,
+                backgroundColor: Colors.red,
               ),
               child: const Text('Cancel'),
             ),
