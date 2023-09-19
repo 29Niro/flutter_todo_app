@@ -1,21 +1,33 @@
 import 'dart:math';
 
 class GUIDGen {
+  static const String chars = '0123456789abcdef';
   static String generate() {
     Random random = Random(DateTime.now().millisecond);
 
-    const String chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    final List<String> uuid = List.filled(36, '', growable: true);
+    final uuid = List.filled(36, '');
 
-    for(int i=0; i<36; i++){
-      final int hexPos = random.nextInt(16);
-      uuid[i] = (chars.substring(hexPos, hexPos+1));
+    for (int i = 0; i < 36; i++) {
+      final hexPos = random.nextInt(16);
+      final hexChar = chars[hexPos];
+      uuid[i] = hexChar;
     }
 
-    int pos = (int.parse(uuid[19], radix: 16) & 0x3) | 0x8;
+    var hexValue = uuid[19];
+    int decimalValue;
+
+    try {
+      decimalValue = int.parse(hexValue, radix: 16);
+    } catch (e) {
+      decimalValue = 0;
+    }
+
+    final pos = (decimalValue & 0x3) | 0x8;
+    final char = chars[pos];
 
     uuid[14] = '4';
-    uuid[19] = chars.substring(pos, pos+1);
+
+    uuid[19] = char;
 
     uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
 
