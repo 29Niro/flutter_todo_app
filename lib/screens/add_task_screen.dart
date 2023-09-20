@@ -10,6 +10,7 @@ class AddTaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController titleController = TextEditingController();
+    TextEditingController descriptionController = TextEditingController();
     return Container(
       padding: const EdgeInsets.all(20.0),
       child: Column(children: [
@@ -22,12 +23,28 @@ class AddTaskScreen extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        TextField(
-          autofocus: true,
-          controller: titleController,
-          decoration: const InputDecoration(
-            labelText: 'Title',
-            border: OutlineInputBorder(),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: TextField(
+            autofocus: true,
+            controller: titleController,
+            decoration: const InputDecoration(
+              labelText: 'Title',
+              border: OutlineInputBorder(),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: TextField(
+            autofocus: true,
+            controller: descriptionController,
+            maxLines: 5,
+            minLines: 3,
+            decoration: const InputDecoration(
+              labelText: 'Description',
+              border: OutlineInputBorder(),
+            ),
           ),
         ),
         Row(
@@ -49,6 +66,7 @@ class AddTaskScreen extends StatelessWidget {
               onPressed: () {
                 var task = Task(
                   title: titleController.text,
+                  description: descriptionController.text,
                   id: GUIDGen.generate(),
                 );
                 // print(task.id);
