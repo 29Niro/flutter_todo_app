@@ -50,7 +50,7 @@ class TasksTile extends StatelessWidget {
                         DateFormat()
                             .add_yMMMd()
                             .add_Hms()
-                            .format(DateTime.now()),
+                            .format(DateTime.parse(task.date)),
                       ),
                     ],
                   ),
