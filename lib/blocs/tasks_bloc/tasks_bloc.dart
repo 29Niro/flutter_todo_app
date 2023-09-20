@@ -12,6 +12,7 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
     on<UpdateTask>(_onUpdateTask);
     on<RemoveTask>(_onRemoveTask);
     on<DeleteTask>(_onDeleteTask);
+    on<MarkFavouriteOrUnFavourite>(_onMarkFavouriteOrUnfavouriteTask);
   }
 
   void _onAddTask(AddTask event, Emitter<TasksState> emit) {
@@ -72,6 +73,50 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
       completedTasks: state.completedTasks,
       favouriteTasks: state.favouriteTasks,
       removedTasks: List.from(state.removedTasks)..remove(event.task),
+    ));
+  }
+
+  void _onMarkFavouriteOrUnfavouriteTask(
+      MarkFavouriteOrUnFavourite event, Emitter<TasksState> emit) {
+    final state = this.state;
+    List<Task> favouriteTasks = state.favouriteTasks;
+    List<Task> pendingTasks = state.pendingTasks;
+    List<Task> completedTasks = state.completedTasks;
+
+    if (event.task.isDone == false) {
+      if (event.task.isFavourite == false) {
+        var taskIndex = pendingTasks.indexOf(event.task);
+        pendingTasks = List.from(pendingTasks)
+          ..remove(event.task)
+          ..insert(taskIndex, event.task.copyWith(isFavourite: true));
+        favouriteTasks.insert(0, event.task.copyWith(isFavourite: true));
+      } else {
+        var taskIndex = pendingTasks.indexOf(event.task);
+        pendingTasks = List.from(pendingTasks)
+          ..remove(event.task)
+          ..insert(taskIndex, event.task.copyWith(isFavourite: false));
+        favouriteTasks.remove(event.task);
+      }
+    } else {
+      if (event.task.isFavourite == false) {
+        var taskIndex = completedTasks.indexOf(event.task);
+        completedTasks = List.from(completedTasks)
+          ..remove(event.task)
+          ..insert(taskIndex, event.task.copyWith(isFavourite: true));
+        favouriteTasks.insert(0, event.task.copyWith(isFavourite: true));
+      } else {
+        var taskIndex = completedTasks.indexOf(event.task);
+        completedTasks = List.from(completedTasks)
+          ..remove(event.task)
+          ..insert(taskIndex, event.task.copyWith(isFavourite: false));
+        favouriteTasks.remove(event.task);
+      }
+    }
+    emit(TasksState(
+      pendingTasks: pendingTasks,
+      completedTasks: completedTasks,
+      favouriteTasks: favouriteTasks,
+      removedTasks: state.removedTasks,
     ));
   }
 

@@ -9,6 +9,7 @@ class Task extends Equatable {
   final String date;
   bool? isDone;
   bool? isDeleted;
+  bool? isFavourite;
 
   Task({
     required this.title,
@@ -17,9 +18,11 @@ class Task extends Equatable {
     required this.date,
     this.isDone,
     this.isDeleted,
+    this.isFavourite,
   }) {
     isDone = isDone ?? false;
     isDeleted = isDeleted ?? false;
+    isFavourite = isFavourite ?? false;
   }
 
   Task copyWith({
@@ -29,6 +32,7 @@ class Task extends Equatable {
     String? date,
     bool? isDone,
     bool? isDeleted,
+    bool? isFavourite,
   }) {
     return Task(
       title: title ?? this.title,
@@ -37,6 +41,7 @@ class Task extends Equatable {
       date: date ?? this.date,
       isDone: isDone ?? this.isDone,
       isDeleted: isDeleted ?? this.isDeleted,
+      isFavourite: isFavourite ?? this.isFavourite,
     );
   }
 
@@ -48,6 +53,7 @@ class Task extends Equatable {
       'date': date,
       'isDone': isDone,
       'isDeleted': isDeleted,
+      'isFavourite': isFavourite,
     };
   }
 
@@ -59,6 +65,8 @@ class Task extends Equatable {
       date: map['date'] as String,
       isDone: map['isDone'] != null ? map['isDone'] as bool : null,
       isDeleted: map['isDeleted'] != null ? map['isDeleted'] as bool : null,
+      isFavourite:
+          map['isFavourite'] != null ? map['isFavourite'] as bool : null,
     );
   }
 
@@ -70,5 +78,6 @@ class Task extends Equatable {
         date,
         isDone,
         isDeleted,
+        isFavourite,
       ];
 }

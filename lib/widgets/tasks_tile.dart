@@ -29,7 +29,7 @@ class TasksTile extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
-                const Icon(Icons.star_border_rounded),
+                task.isFavourite == false ? const Icon(Icons.star_border_rounded): const Icon(Icons.star_rounded),
                 const SizedBox(width: 10.0),
                 Expanded(
                   child: Column(
@@ -73,6 +73,11 @@ class TasksTile extends StatelessWidget {
                   _removeOrDeleteTask(context, task);
                 },
                 task: task,
+                likeOrDislike: () {
+                  context.read<TasksBloc>().add(
+                        MarkFavouriteOrUnFavourite(task: task),
+                      );
+                },
               ),
             ],
           ),
