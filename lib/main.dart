@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_todo_app/screens/task_screen.dart';
+import 'package:flutter_todo_app/screens/tabs_screen.dart';
 import 'package:flutter_todo_app/services/app_router.dart';
 import 'package:flutter_todo_app/services/app_theme.dart';
 import 'package:path_provider/path_provider.dart';
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             theme: state.switchValue
                 ? AppThemes.appThemeData[AppTheme.darkTheme]
                 : AppThemes.appThemeData[AppTheme.lightTheme],
-            home: const TaskScreen(),
+            home: const TabsScreen(),
             onGenerateRoute: appRouter.onGenerateRoute,
           );
         },

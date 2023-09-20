@@ -1,28 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo_app/blocs/bloc_exports.dart';
+import 'package:flutter_todo_app/models/tasks.dart';
+import 'package:flutter_todo_app/widgets/tasks_list.dart';
 
-import '../widgets/tasks_list.dart';
-import 'my_drawer.dart';
+import '../blocs/bloc_exports.dart';
 
-class RecycleBin extends StatelessWidget {
-  const RecycleBin({super.key});
-  static const id = 'recycle_bin';
+// ignore: must_be_immutable
+class CompletedTaskScreen extends StatelessWidget {
+  const CompletedTaskScreen({Key? key}) : super(key: key);
+  static const id = 'completed_task_screen';
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TasksBloc, TasksState>(
       builder: (context, state) {
+        List<Task> taskList = state.completedTasks;
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('Recycle Bin'),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.add),
-              )
-            ],
-          ),
-          drawer: const MyDrawer(),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -32,13 +24,13 @@ class RecycleBin extends StatelessWidget {
                 child: Center(
                   child: Chip(
                     label: Text(
-                      '${state.removedTasks.length} Tasks',
+                      '${state.completedTasks.length} Tasks',
                       style: const TextStyle(fontSize: 20),
                     ),
                   ),
                 ),
               ),
-              TasksList(taskList: state.removedTasks),
+              TasksList(taskList: taskList),
             ],
           ),
         );
