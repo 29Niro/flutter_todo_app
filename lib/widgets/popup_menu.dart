@@ -5,12 +5,14 @@ class PopMenu extends StatelessWidget {
   final Task task;
   final VoidCallback cancelOrDeleteCallback;
   final VoidCallback likeOrDislike;
+  final VoidCallback editTaskCallback;
 
   const PopMenu({
     super.key,
     required this.cancelOrDeleteCallback,
     required this.task,
     required this.likeOrDislike,
+    required this.editTaskCallback,
   });
 
   @override
@@ -20,11 +22,11 @@ class PopMenu extends StatelessWidget {
           ? (context) {
               return [
                 PopupMenuItem(
+                  onTap: null,
                   child: TextButton.icon(
-                      onPressed: null,
+                      onPressed: editTaskCallback,
                       icon: const Icon(Icons.edit),
                       label: const Text('Edit')),
-                  onTap: () {},
                 ),
                 PopupMenuItem(
                   onTap: likeOrDislike,

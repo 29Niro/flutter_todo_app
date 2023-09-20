@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/screens/edit_task_screen.dart';
 import 'package:flutter_todo_app/widgets/popup_menu.dart';
 import 'package:intl/intl.dart';
 
@@ -19,6 +20,22 @@ class TasksTile extends StatelessWidget {
         : context.read<TasksBloc>().add(RemoveTask(task: task));
   }
 
+  void _editTask(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => SingleChildScrollView(
+        child: Container(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: EditTaskScreen(
+            oldTask: task,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,7 +46,9 @@ class TasksTile extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
-                task.isFavourite == false ? const Icon(Icons.star_border_rounded): const Icon(Icons.star_rounded),
+                task.isFavourite == false
+                    ? const Icon(Icons.star_border_rounded)
+                    : const Icon(Icons.star_rounded),
                 const SizedBox(width: 10.0),
                 Expanded(
                   child: Column(
@@ -77,6 +96,10 @@ class TasksTile extends StatelessWidget {
                   context.read<TasksBloc>().add(
                         MarkFavouriteOrUnFavourite(task: task),
                       );
+                },
+                editTaskCallback: () {
+                  Navigator.of(context).pop();
+                  _editTask(context);
                 },
               ),
             ],
