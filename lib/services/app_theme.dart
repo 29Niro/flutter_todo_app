@@ -19,22 +19,22 @@ class AppThemes {
         elevation: 0,
       ),
       textTheme: const TextTheme(
-        headline1: TextStyle(
+        displayLarge: TextStyle(
           color: Colors.white,
           fontSize: 24,
           fontWeight: FontWeight.bold,
         ),
-        headline2: TextStyle(
+        displayMedium: TextStyle(
           color: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
-        bodyText1: TextStyle(
+        bodyLarge: TextStyle(
           color: Colors.white,
           fontSize: 16,
           fontWeight: FontWeight.normal,
         ),
-        bodyText2: TextStyle(
+        bodyMedium: TextStyle(
           color: Colors.white,
           fontSize: 14,
           fontWeight: FontWeight.normal,
@@ -51,22 +51,22 @@ class AppThemes {
         elevation: 0,
       ),
       textTheme: const TextTheme(
-        headline1: TextStyle(
+        displayLarge: TextStyle(
           color: Colors.black,
           fontSize: 24,
           fontWeight: FontWeight.bold,
         ),
-        headline2: TextStyle(
+        displayMedium: TextStyle(
           color: Colors.black,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
-        bodyText1: TextStyle(
+        bodyLarge: TextStyle(
           color: Colors.black,
           fontSize: 16,
           fontWeight: FontWeight.normal,
         ),
-        bodyText2: TextStyle(
+        bodyMedium: TextStyle(
           color: Colors.black,
           fontSize: 14,
           fontWeight: FontWeight.normal,

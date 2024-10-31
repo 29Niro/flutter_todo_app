@@ -35,11 +35,11 @@ class PopMenu extends StatelessWidget {
                   child: TextButton.icon(
                     onPressed: null,
                     icon: task.isFavourite == false
-                        ? const Icon(Icons.bookmark_add_outlined)
-                        : const Icon(Icons.bookmark_remove),
+                        ? const Icon(Icons.favorite_rounded)
+                        : const Icon(Icons.favorite_outline),
                     label: task.isFavourite == false
-                        ? const Text('Add to \nBookmark')
-                        : const Text('Remove \nfrom Bookmark'),
+                        ? const Text('Add to \nFavourite')
+                        : const Text('Remove from \nFavourite'),
                   ),
                 ),
                 PopupMenuItem(

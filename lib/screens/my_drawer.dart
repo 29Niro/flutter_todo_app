@@ -17,11 +17,15 @@ class MyDrawer extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 15),
               color: Colors.blue,
-              child: const Text(
-                'Task Drawer',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
+              child: const Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 16.0),
+                child: Text(
+                  'Task Drawer',
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),

@@ -47,8 +47,11 @@ class TasksTile extends StatelessWidget {
             child: Row(
               children: [
                 task.isFavourite == false
-                    ? const Icon(Icons.star_border_rounded)
-                    : const Icon(Icons.star_rounded),
+                    ? const Icon(Icons.favorite_border_outlined,
+                        color: Colors.grey)
+                    : const Icon(Icons.favorite_rounded,
+                        color: Color.fromARGB(255, 255, 0, 0)),
+
                 const SizedBox(width: 10.0),
                 Expanded(
                   child: Column(
